@@ -1,5 +1,5 @@
-from datetime import date
-from typing import Optional
+from datetime import date, timedelta
+from typing import Callable, Literal, Optional
 
 import pyarrow as pa
 import pyarrow.compute
@@ -16,6 +16,33 @@ DateRegex = re2.compile(
     r")\z"
 )
 
+Unit = Literal["day", "week", "month", "quarter", "year"]
+
+
+_WEEKDAY_OFFSETS = [timedelta(days=n) for n in range(7)]
+_QUARTERS = [0, 1, 1, 1, 4, 4, 4, 7, 7, 7, 10, 10, 10]
+
+
+def to_day(y: int, m: int, d: int) -> date:
+    return date(y, m, d)
+
+
+def to_week(y: int, m: int, d: int) -> date:
+    date1 = date(y, m, d)
+    return date1 - _WEEKDAY_OFFSETS[date1.weekday()]
+
+
+def to_month(y: int, m: int, _: int) -> date:
+    return date(y, m, 1)
+
+
+def to_quarter(y: int, m: int, _: int) -> date:
+    return date(y, _QUARTERS[m], 1)
+
+
+def to_year(y: int, _: int, _2: int) -> date:
+    return date(y, 1, 1)
+
 
 class RenderErrorException(Exception):
     def __init__(self, render_error):
@@ -23,7 +50,9 @@ class RenderErrorException(Exception):
         self.render_error = render_error
 
 
-def str_to_date(name: str, s: str) -> date:
+def str_to_date(
+    name: str, ymd_to_date: Callable[[int, int, int], date], s: str
+) -> date:
     m = DateRegex.fullmatch(s)
     if m is None:
         raise RenderErrorException(
@@ -64,7 +93,7 @@ def str_to_date(name: str, s: str) -> date:
         )
 
     try:
-        return date(year, month, day)
+        return ymd_to_date(year, month, day)
     except ValueError:
         raise RenderErrorException(
             RenderError(
@@ -77,19 +106,26 @@ def str_to_date(name: str, s: str) -> date:
         )
 
 
-def str_to_date_or_null(name: str, s: str) -> Optional[date]:
+def str_to_date_or_null(
+    name: str, ymd_to_date: Callable[[int, int, int], date], s: str
+) -> Optional[date]:
     try:
-        return str_to_date(name, s)
+        return str_to_date(name, ymd_to_date, s)
     except RenderErrorException:
         return None
 
 
 def convert_array(
-    name: str, array: pa.TimestampArray, error_means_null: bool
+    *, name: str, array: pa.TimestampArray, unit: Unit, error_means_null: bool
 ) -> pa.Date32Array:
     if pa.types.is_dictionary(array.type):
         # raises RenderErrorException
-        converted_dictionary = convert_array(name, array.dictionary, error_means_null)
+        converted_dictionary = convert_array(
+            name=name,
+            array=array.dictionary,
+            unit=unit,
+            error_means_null=error_means_null,
+        )
         return pa.DictionaryArray.from_arrays(array.indices, converted_dictionary).cast(
             pa.date32()
         )
@@ -99,21 +135,37 @@ def convert_array(
     else:
         convert_value = str_to_date
 
+    ymd_to_date = {
+        "day": to_day,
+        "week": to_week,
+        "month": to_month,
+        "quarter": to_quarter,
+        "year": to_year,
+    }[unit]
+
     str_list = array.to_pylist()
-    date_list = [None if s is None else convert_value(name, s) for s in str_list]
+    date_list = [
+        None if s is None else convert_value(name, ymd_to_date, s) for s in str_list
+    ]
     return pa.array(date_list, pa.date32())
 
 
 def convert_chunked_array(
-    name: str, chunked_array: pa.ChunkedArray, error_means_null: bool
+    *, name: str, chunked_array: pa.ChunkedArray, unit: Unit, error_means_null: bool
 ) -> pa.ChunkedArray:
     chunks = [
-        convert_array(name, chunk, error_means_null) for chunk in chunked_array.chunks
+        convert_array(
+            name=name, array=chunk, unit=unit, error_means_null=error_means_null
+        )
+        for chunk in chunked_array.chunks
     ]
     return pa.chunked_array(chunks, pa.date32())
 
 
 def render_arrow_v1(table: pa.Table, params, **kwargs):
+    error_means_null = params["error_means_null"]
+    unit = params["unit"]
+
     for colname in params["colnames"]:
         i = table.schema.get_field_index(colname)
 
@@ -123,9 +175,12 @@ def render_arrow_v1(table: pa.Table, params, **kwargs):
         try:
             table = table.set_column(
                 i,
-                pa.field(colname, pa.date32(), metadata={"unit": "day"}),
+                pa.field(colname, pa.date32(), metadata={"unit": unit}),
                 convert_chunked_array(
-                    colname, table.columns[i], params["error_means_null"]
+                    name=colname,
+                    chunked_array=table.columns[i],
+                    unit=unit,
+                    error_means_null=error_means_null,
                 ),
             )
         except RenderErrorException as err:

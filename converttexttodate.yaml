@@ -16,3 +16,13 @@ parameters:
   name: 'Convert non-dates to null'
   type: checkbox
   default: false
+- id_name: unit
+  name: Unit
+  type: menu
+  default: day
+  options:
+    - { value: day, label: Day }
+    - { value: week, label: Week }
+    - { value: month, label: Month }
+    - { value: quarter, label: Quarter }
+    - { value: year, label: Year }

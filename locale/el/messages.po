@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-28 15:52+0000\n"
+"POT-Creation-Date: 2021-04-28 21:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: el\n"
@@ -31,15 +31,33 @@ msgstr ""
 msgid "_spec.parameters.error_means_null.name"
 msgstr ""
 
-#: converttexttodate.py:34
+msgid "_spec.parameters.unit.name"
+msgstr ""
+
+msgid "_spec.parameters.unit.options.day.label"
+msgstr ""
+
+msgid "_spec.parameters.unit.options.week.label"
+msgstr ""
+
+msgid "_spec.parameters.unit.options.month.label"
+msgstr ""
+
+msgid "_spec.parameters.unit.options.quarter.label"
+msgstr ""
+
+msgid "_spec.parameters.unit.options.year.label"
+msgstr ""
+
+#: converttexttodate.py:63
 msgid "error.invalidIso8601Syntax"
 msgstr ""
 
-#: converttexttodate.py:61
+#: converttexttodate.py:90
 msgid "error.invalidMonth"
 msgstr ""
 
-#: converttexttodate.py:74
+#: converttexttodate.py:103
 msgid "error.invalidDay"
 msgstr ""
 

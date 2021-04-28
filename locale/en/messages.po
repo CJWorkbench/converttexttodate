@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-04-28 15:54+0000\n"
+"POT-Creation-Date: 2021-04-28 21:05+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -31,21 +31,39 @@ msgstr "Text values must look like YYYY-MM-DD."
 msgid "_spec.parameters.error_means_null.name"
 msgstr "Convert non-dates to null"
 
-#: converttexttodate.py:34
+msgid "_spec.parameters.unit.name"
+msgstr "Unit"
+
+msgid "_spec.parameters.unit.options.day.label"
+msgstr "Day"
+
+msgid "_spec.parameters.unit.options.week.label"
+msgstr "Week"
+
+msgid "_spec.parameters.unit.options.month.label"
+msgstr "Month"
+
+msgid "_spec.parameters.unit.options.quarter.label"
+msgstr "Quarter"
+
+msgid "_spec.parameters.unit.options.year.label"
+msgstr "Year"
+
+#: converttexttodate.py:63
 msgid "error.invalidIso8601Syntax"
 msgstr ""
 "Invalid date value in column “{column}”. Got “{value}”; expected “YYYY-"
 "MM-DD”. Please clean the text column or enable 'Convert non-dates to "
 "null'"
 
-#: converttexttodate.py:61
+#: converttexttodate.py:90
 msgid "error.invalidMonth"
 msgstr ""
 "Invalid month in column “{column}”, value “{value}”. Month must be "
 "between 1 and 12. Please clean the text column or enable 'Convert non-"
 "dates to null'"
 
-#: converttexttodate.py:74
+#: converttexttodate.py:103
 msgid "error.invalidDay"
 msgstr ""
 "Invalid day in column “{column}”, value “{value}”. The day does not exist"

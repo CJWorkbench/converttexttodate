@@ -123,3 +123,51 @@ def test_convert_dictionary_to_date():
             make_table(make_column("A", [date(2021, 4, 28)], unit="day"))
         ),
     )
+
+
+def test_convert_to_week():
+    assert_result_equals(
+        render(
+            make_table(make_column("A", ["2021-04-28"], dictionary=True)),
+            P(colnames=["A"], unit="week"),
+        ),
+        ArrowRenderResult(
+            make_table(make_column("A", [date(2021, 4, 26)], unit="week"))
+        ),
+    )
+
+
+def test_convert_to_month():
+    assert_result_equals(
+        render(
+            make_table(make_column("A", ["2021-04-28"], dictionary=True)),
+            P(colnames=["A"], unit="month"),
+        ),
+        ArrowRenderResult(
+            make_table(make_column("A", [date(2021, 4, 1)], unit="month"))
+        ),
+    )
+
+
+def test_convert_to_quarter():
+    assert_result_equals(
+        render(
+            make_table(make_column("A", ["2021-04-28"], dictionary=True)),
+            P(colnames=["A"], unit="quarter"),
+        ),
+        ArrowRenderResult(
+            make_table(make_column("A", [date(2021, 4, 1)], unit="quarter"))
+        ),
+    )
+
+
+def test_convert_to_year():
+    assert_result_equals(
+        render(
+            make_table(make_column("A", ["2021-04-28"], dictionary=True)),
+            P(colnames=["A"], unit="year"),
+        ),
+        ArrowRenderResult(
+            make_table(make_column("A", [date(2021, 1, 1)], unit="year"))
+        ),
+    )
