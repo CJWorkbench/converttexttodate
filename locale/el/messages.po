@@ -1,0 +1,45 @@
+# Greek translations for PROJECT.
+# Copyright (C) 2021 ORGANIZATION
+# This file is distributed under the same license as the PROJECT project.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2021.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
+"POT-Creation-Date: 2021-04-28 15:52+0000\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language: el\n"
+"Language-Team: el <LL@li.org>\n"
+"Plural-Forms: nplurals=2; plural=(n != 1)\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: Babel 2.9.0\n"
+
+msgid "_spec.name"
+msgstr ""
+
+msgid "_spec.description"
+msgstr ""
+
+msgid "_spec.parameters.help.name"
+msgstr ""
+
+msgid "_spec.parameters.error_means_null.name"
+msgstr ""
+
+#: converttexttodate.py:34
+msgid "error.invalidIso8601Syntax"
+msgstr ""
+
+#: converttexttodate.py:61
+msgid "error.invalidMonth"
+msgstr ""
+
+#: converttexttodate.py:74
+msgid "error.invalidDay"
+msgstr ""
+

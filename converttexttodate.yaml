@@ -1,0 +1,18 @@
+id_name: converttexttodate
+name: Convert text to date
+category: Clean
+help_url: modules/convert-text-to-date
+icon: calendar
+description: 'Convert text columns to date.'
+parameters:
+- id_name: colnames
+  name: ''
+  type: multicolumn
+  column_types: [ text, date ]
+- id_name: help
+  type: statictext
+  name: 'Text values must look like YYYY-MM-DD.'
+- id_name: error_means_null
+  name: 'Convert non-dates to null'
+  type: checkbox
+  default: false

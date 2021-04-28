@@ -1,0 +1,31 @@
+#. default-message: Convert text to date
+msgid "_spec.name"
+msgstr ""
+
+#. default-message: Convert text columns to date.
+msgid "_spec.description"
+msgstr ""
+
+#. default-message: Text values must look like YYYY-MM-DD.
+msgid "_spec.parameters.help.name"
+msgstr ""
+
+#. default-message: Convert non-dates to null
+msgid "_spec.parameters.error_means_null.name"
+msgstr ""
+
+#. default-message: Invalid date value in column “{column}”. Got “{value}”; expected “YYYY-MM-DD”. Please clean the text column or enable 'Convert non-dates to null'
+#: converttexttodate.py:34
+msgid "error.invalidIso8601Syntax"
+msgstr ""
+
+#. default-message: Invalid month in column “{column}”, value “{value}”. Month must be between 1 and 12. Please clean the text column or enable 'Convert non-dates to null'
+#: converttexttodate.py:61
+msgid "error.invalidMonth"
+msgstr ""
+
+#. default-message: Invalid day in column “{column}”, value “{value}”. The day does not exist in that month. Please clean the text column or enable 'Convert non-dates to null'
+#: converttexttodate.py:74
+msgid "error.invalidDay"
+msgstr ""
+
