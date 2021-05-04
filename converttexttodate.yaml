@@ -8,10 +8,11 @@ parameters:
 - id_name: colnames
   name: ''
   type: multicolumn
-  column_types: [ text, date ]
-- id_name: help
-  type: statictext
-  name: 'Text values must look like YYYY-MM-DD.'
+  column_types: [ text ]
+- id_name: search_in_text
+  name: 'Ignore text before/after YYYY-MM-DD'
+  type: checkbox
+  default: false
 - id_name: error_means_null
   name: 'Convert non-dates to null'
   type: checkbox

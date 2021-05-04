@@ -13,7 +13,7 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "~=3.8.0"
 cjwmodule = "~=4.1"
-pyarrow = "~=3.0"
+pyarrow = "~=4.0"
 
 [tool.poetry.dev-dependencies]
 pytest = "~=6.0"

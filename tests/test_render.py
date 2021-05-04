@@ -58,6 +58,18 @@ def test_convert_regex_mismatch():
     )
 
 
+def test_convert_ignore_before_and_after():
+    assert_result_equals(
+        render(
+            make_table(make_column("A", ["Y:2021-04-28 "])),
+            P(colnames=["A"], search_in_text=True),
+        ),
+        ArrowRenderResult(
+            make_table(make_column("A", [date(2021, 4, 28)], unit="day")),
+        ),
+    )
+
+
 def test_convert_invalid_month():
     assert_result_equals(
         render(make_table(make_column("A", ["2021-14-28"])), P(colnames=["A"])),
