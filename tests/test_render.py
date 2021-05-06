@@ -34,9 +34,64 @@ def test_convert_yyyy_mm_dd():
 
 def test_convert_yyyymmdd():
     assert_result_equals(
-        render(make_table(make_column("A", ["20210428"])), P(colnames=["A"])),
+        render(
+            make_table(make_column("A", ["20210428"])),
+            P(colnames=["A"], format="YYYYMMDD"),
+        ),
         ArrowRenderResult(
             make_table(make_column("A", [date(2021, 4, 28)], unit="day"))
+        ),
+    )
+
+
+def test_convert_m_d_yyyy():
+    assert_result_equals(
+        render(
+            make_table(make_column("A", ["4/28/2021"])),
+            P(colnames=["A"], format="M/D/YYYY"),
+        ),
+        ArrowRenderResult(
+            make_table(make_column("A", [date(2021, 4, 28)], unit="day"))
+        ),
+    )
+
+
+def test_convert_d_m_yyyy():
+    assert_result_equals(
+        render(
+            make_table(make_column("A", ["28/4/2021"])),
+            P(colnames=["A"], format="D/M/YYYY"),
+        ),
+        ArrowRenderResult(
+            make_table(make_column("A", [date(2021, 4, 28)], unit="day"))
+        ),
+    )
+
+
+def test_convert_m_d_yy():
+    assert_result_equals(
+        render(
+            make_table(make_column("A", ["1/2/3", "1/2/80"])),
+            P(colnames=["A"], format="M/D/YY"),
+        ),
+        ArrowRenderResult(
+            make_table(
+                make_column("A", [date(2003, 1, 2), date(1980, 1, 2)], unit="day")
+            )
+        ),
+    )
+
+
+def test_convert_d_m_yy():
+    assert_result_equals(
+        render(
+            make_table(make_column("A", ["1/2/3", "1/2/70"])),
+            P(colnames=["A"], format="D/M/YY"),
+        ),
+        ArrowRenderResult(
+            make_table(
+                make_column("A", [date(2003, 2, 1), date(1970, 2, 1)], unit="day")
+            )
         ),
     )
 
@@ -49,7 +104,7 @@ def test_convert_regex_mismatch():
             [
                 RenderError(
                     i18n_message(
-                        "error.invalidIso8601Syntax",
+                        "error.formatMismatch",
                         dict(column="A", value="2021-04-28 "),
                     )
                 )
@@ -58,14 +113,14 @@ def test_convert_regex_mismatch():
     )
 
 
-def test_convert_ignore_before_and_after():
+def test_convert_regex_mismatch_to_null():
     assert_result_equals(
         render(
-            make_table(make_column("A", ["Y:2021-04-28 "])),
-            P(colnames=["A"], search_in_text=True),
+            make_table(make_column("A", ["2021-04-28 "])),
+            P(colnames=["A"], error_means_null=True),
         ),
         ArrowRenderResult(
-            make_table(make_column("A", [date(2021, 4, 28)], unit="day")),
+            make_table(make_column("A", [None], pa.date32(), unit="day")),
         ),
     )
 
@@ -78,7 +133,7 @@ def test_convert_invalid_month():
             [
                 RenderError(
                     i18n_message(
-                        "error.invalidMonth",
+                        "error.invalidDate",
                         dict(column="A", value="2021-14-28"),
                     )
                 )
@@ -95,7 +150,7 @@ def test_convert_invalid_day():
             [
                 RenderError(
                     i18n_message(
-                        "error.invalidDay",
+                        "error.invalidDate",
                         dict(column="A", value="2021-02-29"),
                     )
                 )
@@ -107,11 +162,15 @@ def test_convert_invalid_day():
 def test_convert_invalid_date_to_null():
     assert_result_equals(
         render(
-            make_table(make_column("A", ["2021-02-29"])),
+            make_table(make_column("A", ["2021-02-29", None, "2021-02-28"])),
             P(colnames=["A"], error_means_null=True),
         ),
         ArrowRenderResult(
-            make_table(make_column("A", [None], pa.date32(), unit="day"))
+            make_table(
+                make_column(
+                    "A", [None, None, date(2021, 2, 28)], pa.date32(), unit="day"
+                )
+            )
         ),
     )
 
@@ -140,11 +199,38 @@ def test_convert_dictionary_to_date():
 def test_convert_to_week():
     assert_result_equals(
         render(
-            make_table(make_column("A", ["2021-04-28"], dictionary=True)),
+            make_table(
+                make_column(
+                    "A",
+                    # Include pre-epoch date -- negatives are weird
+                    [
+                        "2021-04-26",
+                        "2021-05-02",
+                        "2021-05-03",
+                        "1966-03-07",
+                        "1966-03-13",
+                        None,
+                    ],
+                    dictionary=True,
+                )
+            ),
             P(colnames=["A"], unit="week"),
         ),
         ArrowRenderResult(
-            make_table(make_column("A", [date(2021, 4, 26)], unit="week"))
+            make_table(
+                make_column(
+                    "A",
+                    [
+                        date(2021, 4, 26),
+                        date(2021, 4, 26),
+                        date(2021, 5, 3),
+                        date(1966, 3, 7),
+                        date(1966, 3, 7),
+                        None,
+                    ],
+                    unit="week",
+                )
+            )
         ),
     )
 
@@ -152,7 +238,7 @@ def test_convert_to_week():
 def test_convert_to_month():
     assert_result_equals(
         render(
-            make_table(make_column("A", ["2021-04-28"], dictionary=True)),
+            make_table(make_column("A", ["2021-04-28"])),
             P(colnames=["A"], unit="month"),
         ),
         ArrowRenderResult(
@@ -164,7 +250,7 @@ def test_convert_to_month():
 def test_convert_to_quarter():
     assert_result_equals(
         render(
-            make_table(make_column("A", ["2021-04-28"], dictionary=True)),
+            make_table(make_column("A", ["2021-04-28"])),
             P(colnames=["A"], unit="quarter"),
         ),
         ArrowRenderResult(
@@ -176,7 +262,7 @@ def test_convert_to_quarter():
 def test_convert_to_year():
     assert_result_equals(
         render(
-            make_table(make_column("A", ["2021-04-28"], dictionary=True)),
+            make_table(make_column("A", ["2021-04-28"])),
             P(colnames=["A"], unit="year"),
         ),
         ArrowRenderResult(

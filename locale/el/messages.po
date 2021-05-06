@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-04 21:13+0000\n"
+"POT-Creation-Date: 2021-05-06 18:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: el\n"
@@ -25,7 +25,25 @@ msgstr ""
 msgid "_spec.description"
 msgstr ""
 
-msgid "_spec.parameters.search_in_text.name"
+msgid "_spec.parameters.format.name"
+msgstr ""
+
+msgid "_spec.parameters.format.options.YYYY-MM-DD.label"
+msgstr ""
+
+msgid "_spec.parameters.format.options.YYYYMMDD.label"
+msgstr ""
+
+msgid "_spec.parameters.format.options.M/D/YYYY.label"
+msgstr ""
+
+msgid "_spec.parameters.format.options.D/M/YYYY.label"
+msgstr ""
+
+msgid "_spec.parameters.format.options.M/D/YY.label"
+msgstr ""
+
+msgid "_spec.parameters.format.options.D/M/YY.label"
 msgstr ""
 
 msgid "_spec.parameters.error_means_null.name"
@@ -49,15 +67,11 @@ msgstr ""
 msgid "_spec.parameters.unit.options.year.label"
 msgstr ""
 
-#: converttexttodate.py:68
-msgid "error.invalidMonth"
+#: converttexttodate.py:188
+msgid "error.formatMismatch"
 msgstr ""
 
-#: converttexttodate.py:81
-msgid "error.invalidDay"
-msgstr ""
-
-#: converttexttodate.py:145
-msgid "error.invalidIso8601Syntax"
+#: converttexttodate.py:246
+msgid "error.invalidDate"
 msgstr ""
 

@@ -9,10 +9,17 @@ parameters:
   name: ''
   type: multicolumn
   column_types: [ text ]
-- id_name: search_in_text
-  name: 'Ignore text before/after YYYY-MM-DD'
-  type: checkbox
-  default: false
+- id_name: format
+  name: 'Date format in text'
+  type: menu
+  default: 'YYYY-MM-DD'
+  options:
+    - { value: 'YYYY-MM-DD', label: 'YYYY-MM-DD' }
+    - { value: 'YYYYMMDD', label: 'YYYYMMDD' }
+    - { value: 'M/D/YYYY', label: 'M/D/YYYY' }
+    - { value: 'D/M/YYYY', label: 'D/M/YYYY' }
+    - { value: 'M/D/YY', label: 'M/D/YY (1970-2069)' }
+    - { value: 'D/M/YY', label: 'D/M/YY (1970-2079)' }
 - id_name: error_means_null
   name: 'Convert non-dates to null'
   type: checkbox

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-04 21:21+0000\n"
+"POT-Creation-Date: 2021-05-06 18:47+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -25,8 +25,26 @@ msgstr "Convert text to date"
 msgid "_spec.description"
 msgstr "Convert text columns to date."
 
-msgid "_spec.parameters.search_in_text.name"
-msgstr "Ignore text before/after YYYY-MM-DD"
+msgid "_spec.parameters.format.name"
+msgstr "Date format in text"
+
+msgid "_spec.parameters.format.options.YYYY-MM-DD.label"
+msgstr "YYYY-MM-DD"
+
+msgid "_spec.parameters.format.options.YYYYMMDD.label"
+msgstr "YYYYMMDD"
+
+msgid "_spec.parameters.format.options.M/D/YYYY.label"
+msgstr "M/D/YYYY"
+
+msgid "_spec.parameters.format.options.D/M/YYYY.label"
+msgstr "D/M/YYYY"
+
+msgid "_spec.parameters.format.options.M/D/YY.label"
+msgstr "M/D/YY (1970-2069)"
+
+msgid "_spec.parameters.format.options.D/M/YY.label"
+msgstr "D/M/YY (1970-2079)"
 
 msgid "_spec.parameters.error_means_null.name"
 msgstr "Convert non-dates to null"
@@ -49,24 +67,16 @@ msgstr "Quarter"
 msgid "_spec.parameters.unit.options.year.label"
 msgstr "Year"
 
-#: converttexttodate.py:68
-msgid "error.invalidMonth"
+#: converttexttodate.py:188
+msgid "error.formatMismatch"
 msgstr ""
-"Invalid month in column “{column}”, value “{value}”. Month must be "
-"between 1 and 12. Please clean the text column or enable 'Convert non-"
-"dates to null'"
+"Invalid date “{value}” in column “{column}”. Please clean the text "
+"column; choose a different format; enable 'Convert non-dates to null'; or"
+" convert to timestamp first."
 
-#: converttexttodate.py:81
-msgid "error.invalidDay"
+#: converttexttodate.py:246
+msgid "error.invalidDate"
 msgstr ""
-"Invalid day in column “{column}”, value “{value}”. The day does not exist"
-" in that month. Please clean the text column or enable 'Convert non-dates"
-" to null'"
-
-#: converttexttodate.py:145
-msgid "error.invalidIso8601Syntax"
-msgstr ""
-"Invalid date value in column “{column}”. Got “{value}”; expected “YYYY-"
-"MM-DD”. Please clean the text column or enable 'Convert non-dates to "
-"null'"
+"Invalid date “{value}” in column “{column}”: there is no such month/day "
+"in that year."
 
