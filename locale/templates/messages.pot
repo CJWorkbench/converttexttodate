@@ -30,7 +30,7 @@ msgstr ""
 msgid "_spec.parameters.format.options.M/D/YY.label"
 msgstr ""
 
-#. default-message: D/M/YY (1970-2079)
+#. default-message: D/M/YY (1970-2069)
 msgid "_spec.parameters.format.options.D/M/YY.label"
 msgstr ""
 
