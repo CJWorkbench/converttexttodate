@@ -6,7 +6,7 @@ msgstr ""
 msgid "_spec.description"
 msgstr ""
 
-#. default-message: Date format in text
+#. default-message: Input text format
 msgid "_spec.parameters.format.name"
 msgstr ""
 
@@ -38,7 +38,7 @@ msgstr ""
 msgid "_spec.parameters.error_means_null.name"
 msgstr ""
 
-#. default-message: Unit
+#. default-message: Output date unit
 msgid "_spec.parameters.unit.name"
 msgstr ""
 
@@ -62,13 +62,13 @@ msgstr ""
 msgid "_spec.parameters.unit.options.year.label"
 msgstr ""
 
-#. default-message: Invalid date “{value}” in column “{column}”. Please clean the text column; choose a different format; enable 'Convert non-dates to null'; or convert to timestamp first.
-#: converttexttodate.py:188
+#. default-message: In “{column}”, the value “{value}” does not look like “{format}”. Try changing this step's parameters; or using 'Clean text' before this step; or using 'Convert text to timestamp' instead of this step.
+#: converttexttodate.py:194
 msgid "error.formatMismatch"
 msgstr ""
 
 #. default-message: Invalid date “{value}” in column “{column}”: there is no such month/day in that year.
-#: converttexttodate.py:246
+#: converttexttodate.py:254
 msgid "error.invalidDate"
 msgstr ""
 

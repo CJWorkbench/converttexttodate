@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-07 17:38+0000\n"
+"POT-Creation-Date: 2021-05-07 18:17+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: en\n"
@@ -26,7 +26,7 @@ msgid "_spec.description"
 msgstr "Convert text columns to date."
 
 msgid "_spec.parameters.format.name"
-msgstr "Date format in text"
+msgstr "Input text format"
 
 msgid "_spec.parameters.format.options.YYYY-MM-DD.label"
 msgstr "YYYY-MM-DD"
@@ -50,7 +50,7 @@ msgid "_spec.parameters.error_means_null.name"
 msgstr "Convert non-dates to null"
 
 msgid "_spec.parameters.unit.name"
-msgstr "Unit"
+msgstr "Output date unit"
 
 msgid "_spec.parameters.unit.options.day.label"
 msgstr "Day"
@@ -67,14 +67,14 @@ msgstr "Quarter"
 msgid "_spec.parameters.unit.options.year.label"
 msgstr "Year"
 
-#: converttexttodate.py:188
+#: converttexttodate.py:194
 msgid "error.formatMismatch"
 msgstr ""
-"Invalid date “{value}” in column “{column}”. Please clean the text "
-"column; choose a different format; enable 'Convert non-dates to null'; or"
-" convert to timestamp first."
+"In “{column}”, the value “{value}” does not look like “{format}”. Try "
+"changing this step's parameters; or using 'Clean text' before this step; "
+"or using 'Convert text to timestamp' instead of this step."
 
-#: converttexttodate.py:246
+#: converttexttodate.py:254
 msgid "error.invalidDate"
 msgstr ""
 "Invalid date “{value}” in column “{column}”: there is no such month/day "

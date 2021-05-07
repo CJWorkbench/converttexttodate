@@ -164,7 +164,11 @@ def _extract_regex_workaround_arrow_12670(
 
 
 def _parse_unvalidated_years_months_days(
-    column_name: str, strings: pa.StringArray, pattern: str, error_means_null: bool
+    column_name: str,
+    strings: pa.StringArray,
+    pattern: str,
+    format: str,
+    error_means_null: bool,
 ) -> Tuple[pa.Int32Array, pa.Int8Array, pa.Int8Array]:
     """Parse (years, months, days) from strings, using pattern.
 
@@ -184,8 +188,12 @@ def _parse_unvalidated_years_months_days(
                 RenderError(
                     trans(
                         "error.formatMismatch",
-                        "Invalid date “{value}” in column “{column}”. Please clean the text column; choose a different format; enable 'Convert non-dates to null'; or convert to timestamp first.",
-                        dict(column=column_name, value=invalid_strings[0].as_py()),
+                        "In “{column}”, the value “{value}” does not look like “{format}”. Try changing this step's parameters; or using 'Clean text' before this step; or using 'Convert text to timestamp' instead of this step.",
+                        dict(
+                            column=column_name,
+                            value=invalid_strings[0].as_py(),
+                            format=format,
+                        ),
                     )
                 )
             )
@@ -262,6 +270,7 @@ def convert_array(
     array: Union[pa.DictionaryArray, pa.StringArray],
     unit: Unit,
     pattern: str,
+    format: str,
     error_means_null: bool
 ) -> pa.Date32Array:
     if pa.types.is_dictionary(array.type):
@@ -271,12 +280,13 @@ def convert_array(
             array=array.dictionary,
             unit=unit,
             pattern=pattern,
+            format=format,
             error_means_null=error_means_null,
         )
         return converted_dictionary.take(array.indices)
 
     years, months, days = _parse_unvalidated_years_months_days(
-        name, array, pattern=pattern, error_means_null=error_means_null
+        name, array, pattern=pattern, format=format, error_means_null=error_means_null
     )
     date32s = _years_months_days_to_date32s(years, months, days)
 
@@ -341,6 +351,7 @@ def convert_chunked_array(
     chunked_array: pa.ChunkedArray,
     unit: Unit,
     pattern: str,
+    format: str,
     error_means_null: bool
 ) -> pa.ChunkedArray:
     chunks = [
@@ -349,6 +360,7 @@ def convert_chunked_array(
             array=chunk,
             unit=unit,
             pattern=pattern,
+            format=format,
             error_means_null=error_means_null,
         )
         for chunk in chunked_array.chunks
@@ -376,6 +388,7 @@ def render_arrow_v1(table: pa.Table, params, **kwargs):
                     chunked_array=table.columns[i],
                     unit=unit,
                     pattern=pattern,
+                    format=params["format"],
                     error_means_null=error_means_null,
                 ),
             )

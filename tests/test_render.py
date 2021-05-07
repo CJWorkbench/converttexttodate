@@ -105,7 +105,7 @@ def test_convert_regex_mismatch():
                 RenderError(
                     i18n_message(
                         "error.formatMismatch",
-                        dict(column="A", value="2021-04-28 "),
+                        dict(column="A", value="2021-04-28 ", format="YYYY-MM-DD"),
                     )
                 )
             ],

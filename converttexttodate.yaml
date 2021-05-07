@@ -10,7 +10,7 @@ parameters:
   type: multicolumn
   column_types: [ text ]
 - id_name: format
-  name: 'Date format in text'
+  name: 'Input text format'
   type: menu
   default: 'YYYY-MM-DD'
   options:
@@ -25,7 +25,7 @@ parameters:
   type: checkbox
   default: false
 - id_name: unit
-  name: Unit
+  name: Output date unit
   type: menu
   default: day
   options:

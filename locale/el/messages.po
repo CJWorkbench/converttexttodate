@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "Report-Msgid-Bugs-To: EMAIL@ADDRESS\n"
-"POT-Creation-Date: 2021-05-06 18:47+0000\n"
+"POT-Creation-Date: 2021-05-07 17:45+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language: el\n"
@@ -67,11 +67,11 @@ msgstr ""
 msgid "_spec.parameters.unit.options.year.label"
 msgstr ""
 
-#: converttexttodate.py:188
+#: converttexttodate.py:194
 msgid "error.formatMismatch"
 msgstr ""
 
-#: converttexttodate.py:246
+#: converttexttodate.py:254
 msgid "error.invalidDate"
 msgstr ""
 
