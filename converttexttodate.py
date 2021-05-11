@@ -179,7 +179,12 @@ def _parse_unvalidated_years_months_days(
     The returned years, months and days might be invalid -- e.g., month=31.
     """
     structs = _extract_regex_workaround_arrow_12670(strings, pattern=pattern)
-    mismatches = pa.compute.and_(strings.is_valid(), structs.is_null())
+    mismatches = pa.compute.and_(
+        pa.compute.and_(
+            strings.is_valid(), pa.compute.not_equal(strings, pa.scalar(""))
+        ),
+        structs.is_null(),
+    )
 
     if mismatches.true_count:
         if not error_means_null:
@@ -197,11 +202,6 @@ def _parse_unvalidated_years_months_days(
                     )
                 )
             )
-
-        matches_or_null = pa.compute.or_kleene(
-            pa.compute.invert(mismatches), pa.scalar(None, pa.bool_())
-        )
-        structs = structs.filter(matches_or_null, null_selection_behavior="emit_null")
 
     if "?P<yy>" in pattern:
         yy = _struct_string_field_with_nulls(structs, "yy").cast(pa.int32())

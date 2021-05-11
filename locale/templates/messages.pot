@@ -63,7 +63,7 @@ msgid "_spec.parameters.unit.options.year.label"
 msgstr ""
 
 #. default-message: In “{column}”, the value “{value}” does not look like “{format}”. Try changing this step's parameters; or using 'Clean text' before this step; or using 'Convert text to timestamp' instead of this step.
-#: converttexttodate.py:194
+#: converttexttodate.py:199
 msgid "error.formatMismatch"
 msgstr ""
 

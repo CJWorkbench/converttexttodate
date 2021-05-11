@@ -159,6 +159,18 @@ def test_convert_invalid_day():
     )
 
 
+def test_convert_empty_string_is_null_not_error():
+    assert_result_equals(
+        render(
+            make_table(make_column("A", ["2021-05-11", ""])),
+            P(colnames=["A"], error_means_null=False),
+        ),
+        ArrowRenderResult(
+            make_table(make_column("A", [date(2021, 5, 11), None], unit="day")),
+        ),
+    )
+
+
 def test_convert_invalid_date_to_null():
     assert_result_equals(
         render(
