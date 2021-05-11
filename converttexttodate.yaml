@@ -1,7 +1,7 @@
 id_name: converttexttodate
 name: Convert text to date
 category: Clean
-help_url: modules/convert-text-to-date
+help_url: articles/5222652
 icon: calendar
 description: 'Convert text columns to date.'
 parameters:
