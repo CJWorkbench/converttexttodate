@@ -26,11 +26,11 @@ msgstr ""
 msgid "_spec.parameters.format.options.D/M/YYYY.label"
 msgstr ""
 
-#. default-message: M/D/YY (1970-2069)
+#. default-message: M/D/YY
 msgid "_spec.parameters.format.options.M/D/YY.label"
 msgstr ""
 
-#. default-message: D/M/YY (1970-2069)
+#. default-message: D/M/YY
 msgid "_spec.parameters.format.options.D/M/YY.label"
 msgstr ""
 

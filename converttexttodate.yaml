@@ -18,8 +18,8 @@ parameters:
     - { value: 'YYYYMMDD', label: 'YYYYMMDD' }
     - { value: 'M/D/YYYY', label: 'M/D/YYYY' }
     - { value: 'D/M/YYYY', label: 'D/M/YYYY' }
-    - { value: 'M/D/YY', label: 'M/D/YY (1970-2069)' }
-    - { value: 'D/M/YY', label: 'D/M/YY (1970-2069)' }
+    - { value: 'M/D/YY', label: 'M/D/YY' }
+    - { value: 'D/M/YY', label: 'D/M/YY' }
 - id_name: error_means_null
   name: 'Convert non-dates to null'
   type: checkbox
